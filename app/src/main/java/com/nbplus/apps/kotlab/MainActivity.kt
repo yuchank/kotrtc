@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
-import org.webrtc.EglBase
-import org.webrtc.SurfaceViewRenderer
+import org.webrtc.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, SignalingClient.SignalingInterface {
   private val rootEglBase by lazy { EglBase.create() }
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SignalingClient.
   }
 
   private fun start() {
-
+    val videoCapturerAndroid: VideoCapturer? = createCameraCapturer(Camera1Enumerator(false))
   }
 
   /**
@@ -66,4 +65,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SignalingClient.
     SignalingClient.close()
     super.onDestroy()
   }
+
+  private fun createCameraCapturer(enumerator: CameraEnumerator): VideoCapturer? {
+    val deviceNames = enumerator.deviceNames
+    // find the front facing camera and return it
+    deviceNames.filter{ enumerator.isFrontFacing(it) }
+    return null
+  }
+
 }
