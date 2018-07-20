@@ -10,5 +10,9 @@ internal class SignalingClient {
     fun init(signalingInterface: SignalingInterface) {
 
     }
+
+    fun close() {
+
+    }
   }
 }
